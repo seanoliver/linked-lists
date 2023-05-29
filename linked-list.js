@@ -60,35 +60,97 @@ class LinkedList {
 
     let current = this.head;
     for (let i = 0; i < this.length; i++) {
+		// current = current.next;
       if (current.next === this.tail) {
         break;
-      }
-      current = current.next;
+      }else{
+		current=current.next;
+	  }
+      
     }
 
     const oldTail = this.tail;
-    current.next = null;
     this.tail = current;
+	current.next = null;
     this.length--;
 
-    return oldTail;
+    return oldTail.val;
   }
 
 	/** shift(): return & remove first item. */
 
-	shift() {}
+	shift() {
+		if (this.head === null) throw new Error('Empty list!');
+		const oldHead = this.head;
+		this.head = this.head.next;
+		this.length--;
+		if(length===0){
+			this.tail = this.head;
+		}
+		return oldHead.val;
+	}
 
 	/** getAt(idx): get val at idx. */
 
-	getAt(idx) {}
+	getAt(idx) {
+		if(idx <0 || idx>=this.length){
+			throw new Error('Invalid index');
+		}
+		let current=this.head;
+		for(let i=0; i<idx; i++){
+			current = current.next;
+
+		}
+		return current.val;
+
+	}
 
 	/** setAt(idx, val): set val at idx to val */
 
-	setAt(idx, val) {}
+	setAt(idx, val) {
+		if(idx <0 || idx>=this.length){
+			throw new Error('Invalid index');
+		}
+		let current=this.head;
+		for(let i=0; i<idx; i++){
+			current = current.next;
+
+		}
+		current.val = val;
+		return undefined;
+
+	}
 
 	/** insertAt(idx, val): add node w/val before idx. */
 
-	insertAt(idx, val) {}
+	insertAt(idx, val) {
+		if(idx <0 || idx>=this.length){
+			throw new Error('Invalid index');
+		}
+
+		if (idx===0){
+			this.unshift(val);
+		}
+
+		if(idx===this.length-1){
+			this.push(val);
+		}
+
+		let current = this.head; 
+		let prev;
+		for(let i=0; i<idx; i++){
+			prev = current;
+			current = current.next;
+		}
+
+		const newNode = new Node(val);
+		newNode.next = current;
+		prev.next = newNode;
+		this.length++;
+		return undefined;
+
+		
+	}
 
 	/** removeAt(idx): return & remove item at idx, */
 
